@@ -66,3 +66,19 @@ qlikert_plot <- function(DATA,
     ## adding axis titles will be tough
   }
 }
+
+
+
+
+# min =  2.5  = 3 bar
+# max = 8.83 = 22 bar
+# simulate formula for HEIGHT 
+# dat <- data.frame(x = 1:22,
+#                   y = 2.5 + ((1:22 - 3) / 3))
+# plot(dat$x, dat$y)
+# 
+# # find formula for LEGEND POSITION
+# dat <- data.frame(x = c(   3,    8,  22),
+#                   y = c(-.23, -.13,   0))  # not stable above ~n=10
+# plot(dat)
+# (-.13 - (-.23))/(8-3)
