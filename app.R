@@ -62,6 +62,10 @@ server <- function(input, output) {
   source(paste0(getwd(), "/functions/qlikert_clean.R"))
   source(paste0(getwd(), "/functions/qlikert_order.R"))
   source(paste0(getwd(), "/functions/qlikert_plot.R"))
+  # source("/example_data.R")
+  # source("/functions/qlikert_clean.R")
+  # source("/functions/qlikert_order.R")
+  # source("/functions/qlikert_plot.R")
   # qlikert_clean(example_dat, input$NATEXT)
   
   
@@ -82,9 +86,15 @@ server <- function(input, output) {
 # # that will need to be moved to the other end when it is
 # where is my legend? 
 # # probably bc of the movement of it
-
+# any time the sidebar is changed it should auto-clear
 
 
 # Run the application 
 shinyApp(ui = ui, server = server)
 
+
+
+
+
+# deploy to shinyapps.io
+# rsconnect::deployApp("C:/Users/carmst18/Desktop/CPA_JHU_CRRE/rmstrong/qlikert_dashboard")
