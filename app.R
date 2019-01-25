@@ -38,7 +38,9 @@ ui <- fluidPage(
           label       = "Export Plots"),
         actionButton(
           inputId     = "clearplots", 
-          label       = "Clear Plots")
+          label       = "Clear Plots"),
+        
+        print("https://github.com/cparmstrong/qlikert_dashboard")
       ),
       
       mainPanel(
