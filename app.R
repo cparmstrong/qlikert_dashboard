@@ -10,6 +10,10 @@ ui <- fluidPage(
      
       sidebarPanel(
         
+        # actionButton(
+        #   inputId     = "loaddata", 
+        #   label       = "Load Plots"),
+        
         textInput(
           inputId     = "natext",
           label       = "Unknown/Unsure Response Text",
@@ -18,10 +22,12 @@ ui <- fluidPage(
         
         # temporary
         textInput(
-          inputId     = "question_number",
+          inputId     = "question_toplot",
           label       = "Question",
           placeholder = "Q1"
         ),
+
+        # uiOutput("question_numbers"),
         
         # selectInput(
         #   inputId     = "COLS",
@@ -31,7 +37,7 @@ ui <- fluidPage(
         # ),
         
         actionButton(
-          inputId     = "showplots", 
+          inputId     = "showplots",
           label       = "Show Plots"),
         actionButton(
           inputId     = "saveplots", 
@@ -64,21 +70,30 @@ server <- function(input, output) {
   source(paste0(getwd(), "/functions/qlikert_clean.R"))
   source(paste0(getwd(), "/functions/qlikert_order.R"))
   source(paste0(getwd(), "/functions/qlikert_plot.R"))
-  # source("/example_data.R")
-  # source("/functions/qlikert_clean.R")
-  # source("/functions/qlikert_order.R")
-  # source("/functions/qlikert_plot.R")
+
   # qlikert_clean(example_dat, input$NATEXT)
   
+  # observeEvent(input$loaddata, {
+  #   output$dat_scale <- qlikert_clean(example_data, input$natext)
+  #   output$dat_scale_agree <- qlikert_order(unique(dat_scale$q), DATA = output$dat_scale)
+  # })
+
+    
+  # output$question_numbers <- renderUI({
+  #   selectInput(
+  #     inputId       = "question_toplot",
+  #     label         = "Question Number",
+  #     choice        = unique(output$dat_scale$q))
+  # })
   
   observeEvent(input$showplots, {
     qlikert_clean(example_data, input$natext)
-    qlikert_order(unique(dat_scale$q))  # does them all
+    qlikert_order(unique(dat_scale$q))
     output$theplot <- renderPlot({
-      qlikert_plot(input$question_number)
+      qlikert_plot(input$question_toplot)
       })
     })
-  
+
   observeEvent(input$clearplots, {
     output$theplot <- NULL
     })
@@ -89,7 +104,7 @@ server <- function(input, output) {
 # where is my legend? 
 # # probably bc of the movement of it
 # any time the sidebar is changed it should auto-clear
-
+# need to somehow show %NA
 
 # Run the application 
 shinyApp(ui = ui, server = server)

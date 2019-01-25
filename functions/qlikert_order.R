@@ -16,7 +16,8 @@ qlikert_order <- function(
   
   # agg$q_subq <- paste0(agg$q, "_", agg$subq)
   temp <- merge(temp, agg, by = c("q_subq"))
-  
+ 
+  # commented out assignment 25jan2019 
   assign(paste0("dat_scale_", TYPE),
    temp,
    envir = .GlobalEnv)

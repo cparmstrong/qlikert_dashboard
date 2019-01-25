@@ -36,10 +36,9 @@ qlikert_clean <- function(
            responses = factor(responses,
                               levels = RESP_LEVELS),
            q_subq_text = q_subq)
-
-  assign("dat_scale",
-         temp,
-         envir = .GlobalEnv)
+assign("dat_scale",
+       temp,
+       envir = .GlobalEnv)
 }
 
 
