@@ -2,7 +2,7 @@
 
 # likert graphs: load in file for question/response label replacement
 qlikert_recode <- function(Q_R,
-                           LEVELS = NULL, # VECTOR CONTAINING RESPONSE LEVELS IN ORDER
+                           LEVELS = c("Strongly Disagree","Disagree", "Neutral", "Agree", "Strongly Agree"), # VECTOR CONTAINING RESPONSE LEVELS IN ORDER
                            DIR = getwd()
                            # RESP_LEVELS,
                            # QUEST_LABELS = NULL,   
@@ -28,3 +28,8 @@ qlikert_recode <- function(Q_R,
            envir = .GlobalEnv)
   }
 }
+
+
+# 
+
+\

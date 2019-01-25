@@ -1,10 +1,9 @@
-## lines 108:171
 
+# 25jan2019 - question text currently not working; i only had it from template as it had to be manually pulled in; need to see if the API will allow me to grab that automatically; would still need to figure out fitting issues
 
-
-qlikert_plot <- function(DATA,
-                         QNUM,  
-                         COLS,                                     
+qlikert_plot <- function(QNUM,  
+                         COLS = cols5, 
+                         DATA = dat_scale_agree,
                          SAVE = FALSE, 
                          WRAP = 40,  # modifying will break legend
                          RESP_LEVELS = resp_levels,
@@ -65,6 +64,7 @@ qlikert_plot <- function(DATA,
     ## height argument may or may not have interplay
     ## adding axis titles will be tough
   }
+  # add in functionality to do subsets (district, etc.)
 }
 
 
