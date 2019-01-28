@@ -1,3 +1,6 @@
+set.seed(8282017)
+
+
 sample_from <- rep(c("Strongly Agree", 
                      "Agree", 
                      "Neutral", 

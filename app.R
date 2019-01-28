@@ -19,40 +19,34 @@ qlikert_order(unique(dat_scale$q))
 question_choices <- unique(dat_scale$q)
 
 ui <- fluidPage(
-  
   titlePanel("Plot Likert Graphs from Qualtrics for CRRE"),
-  
   sidebarLayout(
-    
     sidebarPanel(
-      
       textInput(
         inputId     = "natext",
         label       = "Unknown/Unsure Response Text",
         placeholder = "Not Applicable"
       ),
-
-      selectInput(
+      selectInput(  # selectize(multiple,)
         inputId     = "question_toplot",
         label       = "Question",
         choices     = NULL,
         selected    = NULL
       ),
-      actionButton(
-        inputId     = "showplots",
-        label       = "Show Plots")
-      
-      
-    ),
-    
     mainPanel(
       plotOutput("theplot"),
-      print("https://github.com/cparmstrong/qlikert_dashboard")
+      tags$h4("https://github.com/cparmstrong/qlikert_dashboard"),
+      tags$ul(
+        tags$li("Add checkboxInput to include missing responses"),
+        tags$li("Add greys to cols for unknown + missing"),
+        tags$li("Move unknown/missingi to left end (right justify by sort fields agree+strongagree"),
+        tags$li("Generate temporary static legend (later, make code work for app+output)"),
+        tags$li("Convert queestion field to selectizeInput with multiple selection allowed"),
+        tags$li("Split files to server+ui (where do util functions go?)")
+      )
     )
   )
 )
-
-
 
 # 
 
@@ -61,23 +55,15 @@ server <- function(input, output, session) {
     session = session,
     inputId = "question_toplot",
     choices = question_choices)
-  
-  # observeEvent(input$showplots, {
-    qlikert_clean(example_data)
-    qlikert_order(unique(dat_scale$q)) 
-    output$theplot <- renderPlot({
-      qlikert_plot(input$question_toplot)
-  # })
-      })
+
+  qlikert_clean(example_data)
+  qlikert_order(unique(dat_scale$q)) 
+  output$theplot <- renderPlot({
+    qlikert_plot(input$question_toplot)
+  })
 
 }
 
-# why isn't the grey on "unsure" category working?
-# # that will need to be moved to the other end when it is
-# where is my legend? 
-# # probably bc of the movement of it
-# any time the sidebar is changed it should auto-clear
-# need to somehow show %NA
 
 # Run the application 
 shinyApp(ui = ui, server = server)
