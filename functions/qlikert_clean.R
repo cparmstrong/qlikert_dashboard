@@ -1,7 +1,7 @@
 
 
 #' @param DATA
-#' @param NATEXT
+#' @param UNSURE_TEXT
 
 #' @return a data frame
 
@@ -18,14 +18,16 @@
 ## qlikert_clean
 qlikert_clean <- function(
   DATA,
-  NATEXT = "heythisisaterriblemethodclay",
+  NA_TEXT = "heythisisaterriblemethodclay",
   RESP_LEVELS = c("Strongly Disagree","Disagree", "Neutral", "Agree", "Strongly Agree")) {
   temp <- DATA %>%
     select(names(DATA)[str_detect(names(DATA), "Q")]) %>%
     gather(contains("Q"), key="q_subq", value="responses", na.rm=TRUE) %>%
     group_by(q_subq, responses) %>%
     summarize(count = n()) %>%
-    filter(responses != NATEXT) %>%  # FIGURE OUT HOW TO CONDITIONALLY PIPE
+    
+    filter(responses != NA_TEXT) %>%  # FIGURE OUT HOW TO CONDITIONALLY PIPE // https://stackoverflow.com/questions/30604107/r-conditional-evaluation-when-using-the-pipe-operator
+    
     mutate(subq = gsub(".*_", "", q_subq),
            q = gsub("_.*", "", q_subq),
            freq = count/sum(count),

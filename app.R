@@ -32,12 +32,14 @@ ui <- fluidPage(
         label       = "Question",
         choices     = NULL,
         selected    = NULL
-      ),
+      )
+    ),
     mainPanel(
       plotOutput("theplot"),
       tags$h4("https://github.com/cparmstrong/qlikert_dashboard"),
       tags$ul(
-        tags$li("Add checkboxInput to include missing responses"),
+        tags$li("Figure out why unsure filter isn't working"),
+        tags$li("Add checkboxInput to include missing responses (need to conditionally pipe the filter in qlikert_clean())"),
         tags$li("Add greys to cols for unknown + missing"),
         tags$li("Move unknown/missingi to left end (right justify by sort fields agree+strongagree"),
         tags$li("Generate temporary static legend (later, make code work for app+output)"),
@@ -45,9 +47,8 @@ ui <- fluidPage(
         tags$li("Split files to server+ui (where do util functions go?)")
       )
     )
-  )
+    )
 )
-
 # 
 
 server <- function(input, output, session) {
