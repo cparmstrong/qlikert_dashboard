@@ -5,8 +5,6 @@ account: cparmstrong
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 666666
-bundleId: 1837196
+bundleId: 1841945
 url: https://cparmstrong.shinyapps.io/qlikert_dashboard/
-when: 1548441229.46363
-asMultiple: FALSE
-asStatic: FALSE
+when: 1548701531.72305

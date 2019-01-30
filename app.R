@@ -32,6 +32,16 @@ ui <- fluidPage(
         label       = "Question",
         choices     = NULL,
         selected    = NULL
+      ),
+      textInput(  # need to give perfect format
+        inputId     = "savepath",
+        label       = "Folder to save the graphs:",
+        placeholder = "C:/Users/JohnDoe/Desktop/Project/"
+      ),
+      actionButton(  
+        inputId     = "savebutton",
+        label       = "Save Graphs",
+        placeholder = "C:/Users/JohnDoe/Desktop/Project/"
       )
     ),
     mainPanel(
@@ -43,7 +53,7 @@ ui <- fluidPage(
         tags$li("Add greys to cols for unknown + missing"),
         tags$li("Move unknown/missingi to left end (right justify by sort fields agree+strongagree"),
         tags$li("Generate temporary static legend (later, make code work for app+output)"),
-        tags$li("Convert queestion field to selectizeInput with multiple selection allowed"),
+        tags$li("Convert queestion field to selectizeInput with multiple selection allowed and loop through questions"),
         tags$li("Split files to server+ui (where do util functions go?)")
       )
     )
@@ -61,6 +71,13 @@ server <- function(input, output, session) {
   qlikert_order(unique(dat_scale$q)) 
   output$theplot <- renderPlot({
     qlikert_plot(input$question_toplot)
+  })
+  
+  observeEvent(input$savebutton, {
+    savepath <- gsub("\\\\", "/", input$savepath)
+    qlikert_plot(input$question_toplot,
+                 SAVE = TRUE,
+                 DIR  = savepath)
   })
 
 }

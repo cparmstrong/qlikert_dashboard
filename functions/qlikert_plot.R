@@ -39,7 +39,7 @@ qlikert_plot <- function(QNUM,
           panel.grid.major = element_line(color="grey95"),
           text = element_text(size=11, family="serif"),
           panel.border=element_rect(size=2, color="#000000", fill=NA),
-          legend.position = c(0.25, 
+          legend.position = c(.45, 
                               OFFSET),  # -.13,  # need fix for high subq
           plot.margin = unit(c(20,20,40,20), "pt"), 
           axis.text.y = element_text(hjust=0.5)) +
