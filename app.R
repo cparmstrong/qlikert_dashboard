@@ -22,16 +22,16 @@ ui <- fluidPage(
   titlePanel("Plot Likert Graphs from Qualtrics for CRRE"),
   sidebarLayout(
     sidebarPanel(
-      textInput(
-        inputId     = "natext",
-        label       = "Unknown/Unsure Response Text",
-        placeholder = "Not Applicable"
-      ),
       selectInput(  # selectize(multiple,)
         inputId     = "question_toplot",
         label       = "Question",
         choices     = NULL,
         selected    = NULL
+      ),
+      textInput(
+        inputId     = "natext",
+        label       = "Unknown/Unsure Response Text",
+        placeholder = "Not Applicable"
       ),
       textInput(  # need to give perfect format
         inputId     = "savepath",
@@ -48,12 +48,12 @@ ui <- fluidPage(
       plotOutput("theplot"),
       tags$h4("https://github.com/cparmstrong/qlikert_dashboard"),
       tags$ul(
-        tags$li("Figure out why unsure filter isn't working"),
+        tags$li("Unsure filter currently is only functional for saving graphs; add to preview mode"),
         tags$li("Add checkboxInput to include missing responses (need to conditionally pipe the filter in qlikert_clean())"),
-        tags$li("Add greys to cols for unknown + missing"),
-        tags$li("Move unknown/missingi to left end (right justify by sort fields agree+strongagree"),
-        tags$li("Generate temporary static legend (later, make code work for app+output)"),
-        tags$li("Convert queestion field to selectizeInput with multiple selection allowed and loop through questions"),
+        tags$li("Add lgrey/dgrey to cols for unsure/missing"),
+        tags$li("Move unknown/missing to left end (right justify by sort fields agree+strongagree"),
+        tags$li("Generate static legend (later add it so it shows in preview mode"),
+        tags$li("Convert question field to selectizeInput with multiple selection allowed and loop through questions"),
         tags$li("Split files to server+ui (where do util functions go?)")
       )
     )
@@ -75,6 +75,11 @@ server <- function(input, output, session) {
   
   observeEvent(input$savebutton, {
     savepath <- gsub("\\\\", "/", input$savepath)
+    savepath <- ifelse(str_sub(savepath, -1, -1)!="/",
+                       paste0(savepath, "/"),
+                       savepath)
+    qlikert_clean(example_data, input$natext)
+    qlikert_order(unique(dat_scale$q)) 
     qlikert_plot(input$question_toplot,
                  SAVE = TRUE,
                  DIR  = savepath)
