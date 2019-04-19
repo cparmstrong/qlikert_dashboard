@@ -22,6 +22,7 @@ ui <- fluidPage(
   titlePanel("Plot Likert Graphs from Qualtrics for CRRE"),
   sidebarLayout(
     sidebarPanel(
+      "Explore Visualizations",
       selectInput(  # selectize(multiple,)
         inputId     = "question_toplot",
         label       = "Question",
@@ -44,6 +45,14 @@ ui <- fluidPage(
         placeholder = "C:/Users/JohnDoe/Desktop/Project/"
       )
     ),
+    sidebarPanel(
+      "Export Graphs",
+      textInput(  # need to give perfect format
+        inputId     = "data_file",
+        label       = "Filepath of Qualtrics CSV export:",
+        placeholder = "C:/Users/JohnDoe/Desktop/Project/"
+      ),
+    )
     mainPanel(
       plotOutput("theplot"),
       tags$h4("https://github.com/cparmstrong/qlikert_dashboard"),
@@ -92,4 +101,4 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 
 # deploy to shinyapps.io
-# rsconnect::deployApp("C:/Users/carmst18/Desktop/CPA_JHU_CRRE/rmstrong/qlikert_dashboard")
+# rsconnect::deployApp("C:/Users/carmst18/Desktop/CPA_JHU_CRRE/R/rmstrong/qlikert_dashboard")
